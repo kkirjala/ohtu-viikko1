@@ -110,7 +110,7 @@ public class VarastoTest {
         double quantityOrig = varasto.getSaldo();        
         double quantityTake = quantityOrig + 5;
         
-        assertEquals(quantityOrig + 2, varasto.otaVarastosta(quantityTake), vertailuTarkkuus);
+        assertEquals(quantityOrig, varasto.otaVarastosta(quantityTake), vertailuTarkkuus);
         
     }
     
