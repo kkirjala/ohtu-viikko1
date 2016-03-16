@@ -64,6 +64,58 @@ public class VarastoTest {
         // varastossa pitäisi olla tilaa 10 - 8 + 2 eli 4
         assertEquals(4, varasto.paljonkoMahtuu(), vertailuTarkkuus);
     }
+    
+    
+    @Test
+    public void addMoreThanCapacity() {
+        
+        // capacity == 10
+        varasto.lisaaVarastoon(20);
+        
+        // capacity should equal stock level, the rest will be thrown away
+        assertEquals(varasto.getTilavuus(), varasto.getSaldo(), vertailuTarkkuus);
+        
+    }
+    
+    @Test
+    public void addNegativeQuantity() {
+    
+        double quantityOrig = varasto.getSaldo();
+        
+        // should not cause any kind of addition
+        
+        varasto.lisaaVarastoon(-2);
+        
+        assertEquals(quantityOrig, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+
+    @Test
+    public void takeNegativeQuantity() {
+    
+        double quantityOrig = varasto.getSaldo();
+        
+        // should not cause any kind of addition
+        
+        varasto.otaVarastosta(-2);
+        
+        assertEquals(quantityOrig, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void takeMoreThanStockLevel() {        
+        
+        // we'll try to take 5 units more than stock level, should only give
+        // us as much as the stock level is on a specific moment.
+        double quantityOrig = varasto.getSaldo();        
+        double quantityTake = quantityOrig + 5;
+        
+        assertEquals(quantityOrig, varasto.otaVarastosta(quantityTake), vertailuTarkkuus);
+        
+    }
+    
+    
+    
 
     @Test
     public void konstr() {
